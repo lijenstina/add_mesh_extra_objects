@@ -16,8 +16,9 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 # Contributed to by:
-# Pontiac, Fourmadmen, varkenvarken, tuga3d, meta-androcto, metalliandy, dreampainter, cotejrp1 #
-# liero, Kayo Phoenix, sugiany, dommetysk, Phymec, Anthony D'Agostino, Pablo Vazquez, Richard Wilks #
+# Pontiac, Fourmadmen, varkenvarken, tuga3d, meta-androcto, metalliandy #
+# dreampainter, cotejrp1, liero, Kayo Phoenix, sugiany, dommetysk #
+# Phymec, Anthony D'Agostino, Pablo Vazquez, Richard Wilks, lijenstina #
 # xyz presets by elfnor
 
 bl_info = {
@@ -158,6 +159,20 @@ class INFO_MT_mesh_math_add(Menu):
         layout.operator("mesh.primitive_xyz_function_surface",
                         text="XYZ Math Surface")
         self.layout.operator("mesh.primitive_solid_add", text="Regular Solid")
+
+
+class INFO_MT_mesh_mech(Menu):
+    # Define the "Math Function" menu
+    bl_idname = "INFO_MT_mesh_mech_add"
+    bl_label = "Mechanical"
+
+    def draw(self, context):
+        layout = self.layout
+        layout.operator_context = 'INVOKE_REGION_WIN'
+        layout.menu("INFO_MT_mesh_pipe_joints_add",
+                text="Pipe Joints", icon="SNAP_PEEL_OBJECT")
+        layout.menu("INFO_MT_mesh_gears_add",
+                text="Gears", icon="SCRIPTWIN")
 
 
 class INFO_MT_mesh_extras_add(Menu):
@@ -335,17 +350,15 @@ def menu_func(self, context):
                     text="Round Cube", icon="MOD_SUBSURF")
     lay_out.menu("INFO_MT_mesh_math_add",
                 text="Math Function", icon="PACKAGE")
+    lay_out.menu("INFO_MT_mesh_mech_add",
+                text="Mechanical", icon="SCRIPTWIN")
+    lay_out.menu("INFO_MT_mesh_torus_add",
+                text="Torus Objects", icon="MESH_TORUS")
+    lay_out.separator()
     lay_out.operator("mesh.generate_geodesic_dome",
                     text="Geodesic Dome", icon="MESH_ICOSPHERE")
     lay_out.operator("discombobulate.ops",
                     text="Discombobulator", icon="RETOPO")
-    lay_out.separator()
-    lay_out.menu("INFO_MT_mesh_pipe_joints_add",
-                text="Pipe Joints", icon="SNAP_PEEL_OBJECT")
-    lay_out.menu("INFO_MT_mesh_gears_add",
-                text="Gears", icon="SCRIPTWIN")
-    lay_out.menu("INFO_MT_mesh_torus_add",
-                text="Torus Objects", icon="MESH_TORUS")
     lay_out.separator()
     lay_out.menu("INFO_MT_mesh_extras_add",
                 text="Extras", icon="MESH_DATA")

@@ -224,10 +224,10 @@ def addBrilliant(context, s, table_w, crown_h, girdle_t, pavi_d, bezel_f,
     dmesh = bpy.data.meshes.new("dmesh")
     dmesh.from_pydata(Verts, [], Faces)
     dmesh.update()
-    dobj = bpy.data.objects.new("dobj", dmesh)
 
-    # link object into scene
-    scene.objects.link(dobj)
+    # Create object and link it into scene.
+    from bpy_extras import object_utils
+    dobj = object_utils.object_data_add(context, dmesh, operator=None, name="dobj").object
 
     # activate and select object
     scene.objects.active = dobj
@@ -254,7 +254,7 @@ def addBrilliant(context, s, table_w, crown_h, girdle_t, pavi_d, bezel_f,
         bpy.ops.mesh.select_all(action='DESELECT')  # deselect all mesh data
         bpy.ops.object.mode_set(mode='OBJECT')
         pls = []
-        dp = obj.data.polygons[:4 * s]                # only consider faces of girdle
+        dp = obj.data.polygons[:4 * s]              # only consider faces of girdle
         ov = obj.data.vertices
 
         for i, p in enumerate(dp):
